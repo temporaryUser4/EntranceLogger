@@ -1,0 +1,131 @@
+﻿<Window x:Class="EntranceLogger.CreationVisitorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EntranceLogger"
+        mc:Ignorable="d"
+        Title="CreationVisitorWindow" Height="400" Width="600">
+    <Window.Resources>
+        <Style TargetType="Label" x:Key="LabelStyle">
+        </Style>
+        <Style TargetType="TextBox" x:Key="TextBoxStyle">
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="0.5" />
+            <Setter Property="Margin" Value="1" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="Blue"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="ComboBox" x:Key="ComboBoxStyle">
+            <Setter Property="Background" Value="LightGray" />
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonStyle">
+            
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition />
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0"
+               Style="{StaticResource LabelStyle}"
+               Content="Информация о посетителе"/>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0"
+               Style="{StaticResource LabelStyle}"
+               Content="Имя"/>
+            <Label Grid.Row="1" Grid.Column="0"
+               Style="{StaticResource LabelStyle}"
+               Content="Фамилия"/>
+            <Label Grid.Row="2" Grid.Column="0"
+               Style="{StaticResource LabelStyle}"
+               Content="Отчество"/>
+            <Label Grid.Row="3" Grid.Column="0"
+               Style="{StaticResource LabelStyle}"
+               Content="Тип документа"/>
+            <Label Grid.Row="4" Grid.Column="0"
+               Style="{StaticResource LabelStyle}"
+               Content="Серия документа"/>
+            <Label Grid.Row="5" Grid.Column="0"
+               Style="{StaticResource LabelStyle}"
+               Content="Номер документа"/>
+            <TextBox Grid.Row="0" Grid.Column="1"
+                     Style="{StaticResource TextBoxStyle}"
+                     Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="1" Grid.Column="1"
+                     Style="{StaticResource TextBoxStyle}"
+                     Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="2" Grid.Column="1"
+                     Style="{StaticResource TextBoxStyle}"
+                     Text="{Binding Patronymic, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="3" Grid.Column="1"
+                     Style="{StaticResource TextBoxStyle}"
+                     Text="{Binding DocumentType, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="4" Grid.Column="1"
+                     Style="{StaticResource TextBoxStyle}"
+                     Text="{Binding DocumentSeries, UpdateSourceTrigger=PropertyChanged}"
+                     MaxLength="15"/>
+            <TextBox Grid.Row="5" Grid.Column="1"
+                     Style="{StaticResource TextBoxStyle}"
+                     Text="{Binding DocumentNumber, UpdateSourceTrigger=PropertyChanged}"
+                     PreviewTextInput="NumericPreviewTextInput" MaxLength="7"/>
+        </Grid>
+        <Label Grid.Row="2" Grid.Column="0"
+               Content="{Binding StatusText}"
+               Foreground="{Binding StatusColor}"
+               Style="{StaticResource LabelStyle}"/>
+        <Grid Grid.Row="3" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions >
+            <Label Grid.Row="0" Grid.Column="0"
+                   Content="Цель визита"
+                   Style="{StaticResource LabelStyle}"/>
+            <TextBox Grid.Row="0" Grid.Column="1"
+                Text="{Binding VisitTarget,
+                UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
+                     Style="{StaticResource TextBoxStyle}"/>
+            <Label Grid.Row="1" Grid.Column="0"
+                   Content="Сотрудник"/>
+            <ComboBox Grid.Row="1" Grid.Column="1"
+                      ItemsSource="{Binding Employees}" DisplayMemberPath="Fullname"
+                      SelectedItem="{Binding SelectedEmployee, Mode=OneWayToSource}"
+                      Style="{StaticResource ComboBoxStyle}"/>
+        </Grid>
+        <Button Grid.Row="5" Grid.Column="0"
+                Style="{StaticResource ButtonStyle}"
+                Content="Добавить" HorizontalAlignment="Right"
+                Padding="10"
+                Command="{Binding AddCommand}"/>
+    </Grid>
+</Window>
